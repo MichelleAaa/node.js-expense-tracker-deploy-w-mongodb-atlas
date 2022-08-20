@@ -1,4 +1,4 @@
-Start the server by using nodemon:
+Start the server by using nodemon (from the backend file, use the terminal and enter:)
 
 $ nodemon server
 

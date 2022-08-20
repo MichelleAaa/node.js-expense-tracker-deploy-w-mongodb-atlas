@@ -1,3 +1,6 @@
+npm start -- to start React
+Note - see the Backend folder's Readme for instructions (Need to start the server file and mongoDB)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

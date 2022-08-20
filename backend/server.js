@@ -18,7 +18,8 @@ connection.once('open', function() {
     console.log("MongoDB database connection established successfully");
 })
 
-transactionRoutes.route('/').get(function(req, res) {
+transactionRoutes.route('/')
+.get(function(req, res) {
     Transaction.find(function(err, transactions) {
         if (err) {
             console.log(err);
@@ -33,6 +34,7 @@ transactionRoutes.route('/').get(function(req, res) {
     let transaction = new Transaction(
         {"transaction_label": req.body['transaction-label'],
         "transaction_value": req.body['transaction-value'],
+        "transaction_type": req.body['transaction-type'],
         "id": req.body.id
     });
     transaction.save()
@@ -42,7 +44,25 @@ transactionRoutes.route('/').get(function(req, res) {
         .catch(err => {
             res.status(400).send('adding new transaction failed');
         });
-});
+})
+.delete(function(req, res) {
+    Transaction.deleteMany({})
+    .then(transaction => {
+            res.status(200).end('Data Deleted');
+    })
+})
+;
+
+transactionRoutes.route('/:id')
+.delete(function(req, res) {
+    Transaction.findByIdAndDelete(req.params.id)
+    .then(response => {
+            res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json(response);
+    })
+})
+;
 
 app.use('/tracker', transactionRoutes);
 

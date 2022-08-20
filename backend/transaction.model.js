@@ -10,6 +10,10 @@ let Transaction = new Schema({
         type: String,
         required: true
     },
+    transaction_type: {
+        type: String,
+        required: true
+    },
     id: {
         type: String,
         required: true
