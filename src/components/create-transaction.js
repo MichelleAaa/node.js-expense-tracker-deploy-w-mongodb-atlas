@@ -1,42 +1,43 @@
 import React, { useState, useEffect } from 'react';
+import { Button, ButtonGroup } from 'reactstrap';
 import Header from './header';
 import History from './history';
 import axios from 'axios';
 
 const InputForm = () => {
-    const [type, setType] = useState({});
+    const [type, setType] = useState('');
     const [label, setLabel] = useState('');
     const [value, setValue] = useState('');
     const [list, setList] = useState([]);
 
-    const handleTypeChange = (e) => {
-        setType({
-        ...type, [e.currentTarget.name]: e.currentTarget.value });
+    // const handleTypeChange = (e) => {
+    //     setType({
+    //     ...type, [e.currentTarget.name]: e.currentTarget.value });
+    // };
+
+    const onRadioBtnClick = (rSelected) => {
+        setType(rSelected);
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        if(type['transaction-type']){
+        if(type !== ''){
             let newTransaction = {
                 "transaction-label": label,
                 "transaction-value": value,
-                "transaction-type": type['transaction-type'],
-                id: new Date().getTime().toString()
+                "transaction-type": type
+                // id: new Date().getTime().toString()
             }
-            console.log(newTransaction);
-
             axios.post('http://localhost:4000/tracker', newTransaction)
                 .then(res => {
                     console.log(res.data);
-                    // Here we’re using the axios.post method to send an HTTP POST request to the back-end endpoint http://localhost:4000/tracker. This endpoint is expecting to get the new object in JSON format in the request body, which is being passed in as the second argument (newTransaction).
+                    //Sends an HTTP POST request to the backend endpoint http://localhost:4000/tracker. This endpoint is expecting to get the new object in JSON format in the request body, which is being passed in as the second argument (newTransaction).
 
                     // Sets input fields back to being empty:
                     e.target.reset();
-                    // Request's the data so the list will update:
+                    // Requests the data so the list will update/re-render:
                     requestData();
-                }); 
-            
+                });    
         } else {
             alert('Error, please make a valid type selection.')
         }
@@ -51,7 +52,7 @@ const InputForm = () => {
         .catch(function (error){
             console.log(error);
         })
-    }
+    };
 
     const handleDeleteAll = (e) => {
         axios.delete('http://localhost:4000/tracker')
@@ -65,7 +66,7 @@ const InputForm = () => {
     };
 
     useEffect(() => {
-        // code to run on component mount, so the list will populate with data from the server on page load:
+        // Runs on component mount, so the list will populate with data from the server on page load:
         requestData();
     }, []);
 
@@ -74,49 +75,49 @@ const InputForm = () => {
             <Header headerData={list} />
             <section className="container-fluid">
                 <div className="row d-flex justify-content-center">
-                    <div className="col-11 col-lg-6 text-center mt-4 py-5">
-                        <h2 className="pb-5">Add a New Transaction</h2>
+                    <div className="col-11 col-lg-6 text-center mt-1 py-5">
+                        <h2 className="pb-5">Transaction Entry</h2>
                         <form onSubmit={(e) => handleSubmit(e)} className='text-left'>
                             <div className="row form-group">
                                 <div className="col">
-                                <label htmlFor="transaction-label">Label</label>
+                                <label htmlFor="transaction-label">Label:</label>
                                 <input className="form-control"
                                     type="text"
                                     name="transaction-label"
                                     id="transaction-label"
-                                    onChange={
-                                        (e) => setLabel(e.target.value)
-                                    }
+                                    onChange={(e) => setLabel(e.target.value)}
                                     required
                                 />
                                 </div>
                                 <div className="col">
-                                <label htmlFor="transaction-value">Value</label>
+                                <label htmlFor="transaction-value">Value:</label>
                                 <input className="form-control"
                                     type="number"
                                     name="transaction-value"
                                     id='transaction-value'
-                                    onChange={
-                                        (e) => setValue(e.target.value)
-                                    }
+                                    onChange={(e) => setValue(e.target.value)}
                                     required
                                 />
                                 </div>
                                 <div className="row form-group">
-                                <label className="col-sm-6 col-form-label modal-text">Type:</label>
-                                <fieldset id="transaction-type">
-                                    <div className="col-4 btn-group btn-group-toggle" data-toggle="buttons">
-                                        <label className="btn radio-btn-1 active text-nowrap">
-                                            <input type="radio" name="transaction-type" autoComplete="off" value="income" checked={'income'}  onChange={handleTypeChange} required /> Income
-                                        </label>
-                                        <label className="btn radio-btn-2 text-nowrap">
-                                            <input type="radio" name="transaction-type" autoComplete="off" value="expense" checked={'expense'} onChange={handleTypeChange} /> Expense
-                                        </label>
-                                    </div>
-                                </fieldset>
+                                    <div className="col-sm-6 col-form-label  mx-auto mt-2">Type:</div>
+                                    <ButtonGroup>
+                                        <Button color="secondary" onClick={() => onRadioBtnClick('income')}>Income</Button>
+                                        <Button color="secondary" onClick={() => onRadioBtnClick('expense')}>Expense</Button>
+                                    </ButtonGroup>
+                                    {/* <fieldset id="transaction-type">
+                                        <div className="col-6 btn-group" role="group" aria-label="Type radio group">
+                                            <label className="btn radio-btn-1 btn-outline-primary text-nowrap" for="income">Income</label>
+                                            <input type="radio" className='btn-check' name="transaction-type" id="income" autoComplete="off" value="income" checked={'income'}  onChange={handleTypeChange} required /> 
+                                            
+                                            <label className="btn radio-btn-2 btn-outline-primary" for="expense">Expense
+                                            </label>
+                                            <input type="radio" className='btn-check' name="transaction-type" id="expense"  autoComplete="off" value="expense" checked={'expense'} onChange={handleTypeChange} /> 
+                                        </div>
+                                    </fieldset> */}
                                 </div>
                             <div className="form-group text-center pt-3">
-                                <input type="submit" value="Submit" className='' />
+                                <input type="submit" value="Submit" className='btn entry-btn' />
                             </div>
                             </div>
                         </form>

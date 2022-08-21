@@ -34,8 +34,8 @@ transactionRoutes.route('/')
     let transaction = new Transaction(
         {"transaction_label": req.body['transaction-label'],
         "transaction_value": req.body['transaction-value'],
-        "transaction_type": req.body['transaction-type'],
-        "id": req.body.id
+        "transaction_type": req.body['transaction-type']
+        // "id": req.body.id
     });
     transaction.save()
         .then(transaction => {
@@ -48,12 +48,32 @@ transactionRoutes.route('/')
 .delete(function(req, res) {
     Transaction.deleteMany({})
     .then(transaction => {
-            res.status(200).end('Data Deleted');
+        res.status(200).end('Data Deleted');
     })
 })
 ;
 
 transactionRoutes.route('/:id')
+.put(function(req, res) {
+    let transaction = 
+        {"transaction_label": req.body['transaction-label'],
+        "transaction_value": req.body['transaction-value'],
+        "transaction_type": req.body['transaction-type']
+        // "id": req.body.id
+    };
+    //Finds the existing document by the id, and replace it with the details in the transaction variable.
+    Transaction.findByIdAndUpdate(req.params.id, { 
+        $set: transaction
+    }, { new: true }) //Third argument is to get back information about the updated document as a result from this method. 
+    .then(transaction => {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json(transaction);
+    })
+    .catch(err => {
+        res.status(400).send('Update failed.');
+    });
+})
 .delete(function(req, res) {
     Transaction.findByIdAndDelete(req.params.id)
     .then(response => {
@@ -61,8 +81,7 @@ transactionRoutes.route('/:id')
         res.setHeader('Content-Type', 'application/json');
         res.json(response);
     })
-})
-;
+});
 
 app.use('/tracker', transactionRoutes);
 

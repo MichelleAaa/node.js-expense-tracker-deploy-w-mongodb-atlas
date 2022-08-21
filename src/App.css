@@ -1,16 +1,5 @@
-.App {
+/* .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
 }
 
 .App-header {
@@ -27,12 +16,40 @@
 .App-link {
   color: #61dafb;
 }
+ */
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+/* Transaction Entry Section */
+
+.entry-btn {
+  border: 1px solid rgb(188, 185, 185);
+  height: 70px;
+  width: 50%;
+  font-size: 2rem;
+  background-color: rgb(136, 218, 136);
+}
+
+
+
+/* History Section */
+.history-delete-btn {
+  color: gray;
+}
+
+.history-item {
+  background-color: rgb(240, 239, 239);
+  margin: 30px;
+  padding: 6px;
+}
+
+.history-item-btn:hover {
+  border: 1px solid rgb(188, 185, 185);
+}
+
+.icon-edit {
+  color: green;
+}
+
+.icon-delete {
+  color: red;
 }
