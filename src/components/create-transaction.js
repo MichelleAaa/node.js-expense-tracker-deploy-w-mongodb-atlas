@@ -10,11 +10,6 @@ const InputForm = () => {
     const [value, setValue] = useState('');
     const [list, setList] = useState([]);
 
-    // const handleTypeChange = (e) => {
-    //     setType({
-    //     ...type, [e.currentTarget.name]: e.currentTarget.value });
-    // };
-
     const onRadioBtnClick = (rSelected) => {
         setType(rSelected);
     };
@@ -80,33 +75,34 @@ const InputForm = () => {
                         <h2 className="pb-3">Transaction Entry</h2>
                         <form onSubmit={(e) => handleSubmit(e)} className='text-left'>
                             <div className="row form-group">
-                                <div className="col">
-                                <label className='transaction-entry-label' htmlFor="transaction-label">Label:</label>
-                                <input className="form-control"
-                                    type="text"
-                                    name="transaction-label"
-                                    id="transaction-label"
-                                    onChange={(e) => setLabel(e.target.value)}
-                                    required
-                                />
-                                </div>
-                                <div className="col">
-                                <label className='transaction-entry-label' htmlFor="transaction-value">Value:</label>
-                                <input className="form-control"
-                                    type="number"
-                                    name="transaction-value"
-                                    id='transaction-value'
-                                    onChange={(e) => setValue(e.target.value)}
-                                    min="0"
-                                    required
-                                />
+                                <div className="col-6">
+                                    <label className='transaction-entry-label' htmlFor="transaction-label">Label:</label>
+                                    <input className="form-control"
+                                        type="text"
+                                        name="transaction-label"
+                                        id="transaction-label"
+                                        onChange={(e) => setLabel(e.target.value)}
+                                        required
+                                    />
+                                </div> 
+                                <div className="col-6">
+                                    <label className='transaction-entry-label' htmlFor="transaction-value">Value:</label>
+                                    <input className="form-control"
+                                        type="number"
+                                        name="transaction-value"
+                                        id='transaction-value'
+                                        onChange={(e) => setValue(e.target.value)}
+                                        min="0"
+                                        required
+                                    />
                                 </div>
                                 <div className="row form-group">
-                                    <div className="col-sm-6 col-form-label  mx-auto mt-2 transaction-entry-label">Type:</div>
+                                    <div className="col col-form-label mx-auto mt-2 transaction-entry-label">Type: </div>
                                     <ButtonGroup>
                                         <Button color="secondary" onClick={() => onRadioBtnClick('income')}>Income</Button>
                                         <Button color="secondary" onClick={() => onRadioBtnClick('expense')}>Expense</Button>
                                     </ButtonGroup>
+                                    {/* </div> */}
                                 </div>
                             <div className="form-group text-center pt-3">
                                 <input type="submit" value="Submit" className='btn entry-btn mt-2' />

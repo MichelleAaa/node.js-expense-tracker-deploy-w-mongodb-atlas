@@ -16,11 +16,6 @@ const History = ({historyData, handleDeleteAll, requestData }) => {
             const [label, setLabel] = useState('');
             const [value, setValue] = useState('');
 
-            // const handleTypeChange = (e) => {
-            //     setType({
-            //     ...type, [e.currentTarget.name]: e.currentTarget.value });
-            // };
-
             const onRadioBtnClick = (rSelected) => {
                 setType(rSelected);
             };
@@ -43,7 +38,7 @@ const History = ({historyData, handleDeleteAll, requestData }) => {
                             e.target.reset();
                             // Sets type back to '':
                             setType('');
-                            // Request's the data so the list will update:
+                            // Requests the data so the list will update:
                             requestData();
                         }); 
                 } else {
@@ -86,7 +81,7 @@ const History = ({historyData, handleDeleteAll, requestData }) => {
                                     </ButtonGroup>
                                 </div>
                             <div className="form-group text-center pt-4 d-flex justify-content-left flex-row">
-                                <input type="submit" value="Submit" className='btn transaction-update-submit m-2' />
+                                <input type="submit" value="Submit" className='btn transaction-update-submit m-2'/>
                                 <button type="button" className="btn transaction-update-cancel m-2" onClick={() => setShowEdit(!showEdit)}>Cancel</button>
                             </div>
                         </div>
@@ -108,40 +103,38 @@ const History = ({historyData, handleDeleteAll, requestData }) => {
         };
 
         return (
-        <React.Fragment>
-            <article className="col-12 col-xl-11">
-                <div className={ data.transaction_type === 'income' ? "history-item history-item-income" : "history-item history-item-expense"} id="history">
-                    <div className='row m-5 d-flex justify-content-center align-items-center'>
-                        <div className='col-8'>
-                            <h4 className='history-item-label'>{data.transaction_label}</h4>
-                            <p className='history-item-value'>${data.transaction_value}</p>
-                        </div>
-                        <div className='col-4'>
-                            <div className='m-1'>
-                                <button type="button" className="btn history-item-btn mr-2" onClick={() => setShowEdit(!showEdit)}>
-                                    <IconContext.Provider value={ {className: "icon-edit"} }>
-                                        <AiFillEdit size='25px' />
-                                    </IconContext.Provider>
-                                </button>
+            <div className='row'>
+                <article className="col-12 col-xl-11">
+                    <div className={ data.transaction_type === 'income' ? "history-item history-item-income" : "history-item history-item-expense"} id="history">
+                        <div className='row m-5 d-flex justify-content-center align-items-center'>
+                            <div className='col-8'>
+                                <h4 className='history-item-label'>{data.transaction_label}</h4>
+                                <p className='history-item-value'>${data.transaction_value}</p>
                             </div>
-                            <div className='m-1'>
-                                <button type="button" className="btn history-item-btn" onClick={() => deleteItem(data._id)}>
-                                    <IconContext.Provider value={ {className: "icon-delete"} }>
-                                        <MdDeleteSweep size='25px' />
-                                    </IconContext.Provider>
-                                </button>
+                            <div className='col-4 d-flex justify-content-center flex-row'>
+                                <div className='m-1'>
+                                    <button type="button" className="btn history-item-btn mr-2" onClick={() => setShowEdit(!showEdit)}>
+                                        <IconContext.Provider value={ {className: "icon-edit"} }>
+                                            <AiFillEdit size='25px' />
+                                        </IconContext.Provider>
+                                    </button>
+                                </div>
+                                <div className='m-1'>
+                                    <button type="button" className="btn history-item-btn" onClick={() => deleteItem(data._id)}>
+                                        <IconContext.Provider value={ {className: "icon-delete"} }>
+                                            <MdDeleteSweep size='25px' />
+                                        </IconContext.Provider>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </article>
-            {showEdit && <EditItem id={data._id} />}
-        </React.Fragment>
+                </article>
+                {showEdit && <EditItem id={data._id} />}
+            </div>
         );
     };
-    console.log('this is historyData[0]');
-    console.log(historyData[0]);
-    console.log(historyData);
+
     return (
         <section className="d-flex justify-content-center pt-2">
             <div className="container-fluid text-center">

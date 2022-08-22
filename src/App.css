@@ -22,18 +22,15 @@ h1,
 h2 {
   font-family: var(--font-largest);
   font-weight: bold;
+  color: var(--main-dark);
 }
 
 h1 {
   font-size: 2.5rem;
-  color: var(--main-dark);
 }
 
 h2 {
   font-size: 1.6rem;
-  color: var(--main-dark);
-  font-family: var(--font-medium);
-  font-family: var(--font-largest);
 }
 
 h3 {
