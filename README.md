@@ -7,7 +7,7 @@ Also start the mongoDB.
 
 A web-based application featuring an expense tracker. Built with React, JSX, Node.js, Express, MongoDB, Mongoose, Axios, JavaScript, Bootstrap, Reactstrap, and CSS. create-react-app was used to set up the front-end.
 
-## Project Screen Shot(s)
+## Project Screen Shots
 
 
 Expense Tracker Start Screen
@@ -51,6 +51,13 @@ Update Completed
 ![Update Completed](src/assets/readme-img/expense-tracker-updated.jpeg "After filling out the fields and clicking submit, the update will reflect onscreen.")
 
 After filling out the fields and clicking submit, the update will reflect onscreen. 
+
+
+Delete All
+
+![Delete All](src/assets/readme-img/expense-tracker-delete-all.jpeg "By clicking the Delete All button under Transaction History, all entries will be deleted.")
+
+By clicking the Delete All button under Transaction History, all entries will be deleted.
 
 
 Responsive Design
@@ -98,9 +105,9 @@ I built this project after studying in the course focused on Node.js, Express, M
 
 ## References
 
--CodingTheSmartWay - "The MERN Stack Tutorial - Building a React CRUD Application from Start to Finish with MongoDB, Express, React, and Node.js" - https://codingthesmartway.com/the-mern-stack-tutorial-building-a-react-crud-application-from-start-to-finish-part-1/ (Inspiration for the initial setup of the frontend and the backend server.)
+- CodingTheSmartWay - "The MERN Stack Tutorial - Building a React CRUD Application from Start to Finish with MongoDB, Express, React, and Node.js" - https://codingthesmartway.com/the-mern-stack-tutorial-building-a-react-crud-application-from-start-to-finish-part-1/ (Inspiration for the initial setup of the frontend and the backend server.)
 - Code With Sandip - "JavaScript Beginner Course | Practical JavaScript | Expense Tracker Application using JavaScript" - https://www.youtube.com/watch?v=hAEL5beIbuw  (Inspiration for the project ideal itself and some UI Design elements.)
--John Smilga - React Tutorial and Projects Course - Grocery Bud Mini Project - https://www.udemy.com/course/react-tutorial-and-projects-course/ (For additional inspiration regarding the React CRUD setup.)
+- John Smilga - React Tutorial and Projects Course - Grocery Bud Mini Project - https://www.udemy.com/course/react-tutorial-and-projects-course/ (For additional inspiration regarding the React CRUD setup.)
 
 --------------------
 
