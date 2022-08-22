@@ -26,7 +26,6 @@ const InputForm = () => {
                 "transaction-label": label,
                 "transaction-value": value,
                 "transaction-type": type
-                // id: new Date().getTime().toString()
             }
             axios.post('http://localhost:4000/tracker', newTransaction)
                 .then(res => {
@@ -35,6 +34,8 @@ const InputForm = () => {
 
                     // Sets input fields back to being empty:
                     e.target.reset();
+                    // Sets type back to '':
+                    setType('');
                     // Requests the data so the list will update/re-render:
                     requestData();
                 });    
@@ -75,12 +76,12 @@ const InputForm = () => {
             <Header headerData={list} />
             <section className="container-fluid">
                 <div className="row d-flex justify-content-center">
-                    <div className="col-11 col-lg-6 text-center mt-1 py-5">
-                        <h2 className="pb-5">Transaction Entry</h2>
+                    <div className="col-11 col-lg-6 text-center mt-2 pb-5">
+                        <h2 className="pb-3">Transaction Entry</h2>
                         <form onSubmit={(e) => handleSubmit(e)} className='text-left'>
                             <div className="row form-group">
                                 <div className="col">
-                                <label htmlFor="transaction-label">Label:</label>
+                                <label className='transaction-entry-label' htmlFor="transaction-label">Label:</label>
                                 <input className="form-control"
                                     type="text"
                                     name="transaction-label"
@@ -90,34 +91,25 @@ const InputForm = () => {
                                 />
                                 </div>
                                 <div className="col">
-                                <label htmlFor="transaction-value">Value:</label>
+                                <label className='transaction-entry-label' htmlFor="transaction-value">Value:</label>
                                 <input className="form-control"
                                     type="number"
                                     name="transaction-value"
                                     id='transaction-value'
                                     onChange={(e) => setValue(e.target.value)}
+                                    min="0"
                                     required
                                 />
                                 </div>
                                 <div className="row form-group">
-                                    <div className="col-sm-6 col-form-label  mx-auto mt-2">Type:</div>
+                                    <div className="col-sm-6 col-form-label  mx-auto mt-2 transaction-entry-label">Type:</div>
                                     <ButtonGroup>
                                         <Button color="secondary" onClick={() => onRadioBtnClick('income')}>Income</Button>
                                         <Button color="secondary" onClick={() => onRadioBtnClick('expense')}>Expense</Button>
                                     </ButtonGroup>
-                                    {/* <fieldset id="transaction-type">
-                                        <div className="col-6 btn-group" role="group" aria-label="Type radio group">
-                                            <label className="btn radio-btn-1 btn-outline-primary text-nowrap" for="income">Income</label>
-                                            <input type="radio" className='btn-check' name="transaction-type" id="income" autoComplete="off" value="income" checked={'income'}  onChange={handleTypeChange} required /> 
-                                            
-                                            <label className="btn radio-btn-2 btn-outline-primary" for="expense">Expense
-                                            </label>
-                                            <input type="radio" className='btn-check' name="transaction-type" id="expense"  autoComplete="off" value="expense" checked={'expense'} onChange={handleTypeChange} /> 
-                                        </div>
-                                    </fieldset> */}
                                 </div>
                             <div className="form-group text-center pt-3">
-                                <input type="submit" value="Submit" className='btn entry-btn' />
+                                <input type="submit" value="Submit" className='btn entry-btn mt-2' />
                             </div>
                             </div>
                         </form>

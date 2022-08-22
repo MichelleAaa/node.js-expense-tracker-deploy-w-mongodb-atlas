@@ -4,27 +4,27 @@ const Header = ({ headerData }) => {
     let balance = income - expense;
 
     return (
-        <section className="d-flex justify-content-center pt-5">
+        <section className="d-flex justify-content-center pt-4">
             <div className="container-fluid">
                 <div className="row">
-                    <div className="col text-center pb-3">
+                    <div className="col text-center pb-4">
                         <h1>Expense Tracker</h1>
                     </div>
                 </div>
                 <div className="row d-flex justify-content-center">
                     <div className="col text-center">
-                        <h4>Your Balance</h4>
-                        <p className="balance">${balance}
+                        <h3>Your Balance</h3>
+                        <p className={balance === 0 || balance === -0 ? 'balance' : Math.sign(balance) === 1 ? 'income' : 'expense'}>${balance}
                         </p>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-6 text-center">
-                        <h2>Income</h2>
+                        <h3>Income</h3>
                         <p className="income">${income}</p>
                     </div>
                     <div className="col-6 text-center">
-                        <h2>Expense</h2>
+                        <h3>Expense</h3>
                         <p className="expense">${expense}</p>
                     </div>
                 </div>

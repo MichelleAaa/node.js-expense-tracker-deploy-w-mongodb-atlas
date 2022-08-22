@@ -1,34 +1,88 @@
-/* .App {
-  text-align: center;
+:root {
+  --main-darkest: #0D1321;
+  --main-light: #b9c7de;
+  --main-medium: #3E5C76;
+  --main-dark: #1D2D44;
+  --main-red: red;
+  --main-green: green;
+  --bg-body: #fbfbfa;
+  --box-shadow-small: 0 5px 10px rgba(0, 0, 0, .2);
+  --box-shadow-large: 0 10px 20px rgba(0, 0, 0, .2);
+  --font-largest: 'Open Sans', sans-serif;
+  --font-medium: 'Cormorant', serif;
+  --font-small: 'Lato', sans-serif;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+body {
+  background-color: var(--bg-body);
+  font-family: var(--font-small);
 }
 
-.App-link {
-  color: #61dafb;
+h1,
+h2 {
+  font-family: var(--font-largest);
+  font-weight: bold;
 }
- */
 
+h1 {
+  font-size: 2.5rem;
+  color: var(--main-dark);
+}
+
+h2 {
+  font-size: 1.6rem;
+  color: var(--main-dark);
+  font-family: var(--font-medium);
+  font-family: var(--font-largest);
+}
+
+h3 {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: var(--main-medium);
+  font-family: var(--font-largest);
+}
+
+/* Header Section */
+
+.balance, .income, .expense {
+  padding-top: 10px;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.balance {
+  color: var(--main-dark);
+}
+
+.income {
+  color: var(--main-green);
+}
+
+.expense {
+  color: var(--main-red);
+}
 
 /* Transaction Entry Section */
 
-.entry-btn {
-  border: 1px solid rgb(188, 185, 185);
-  height: 70px;
-  width: 50%;
-  font-size: 2rem;
-  background-color: rgb(136, 218, 136);
+.transaction-entry-label {
+  font-size: 1.2rem;
 }
 
+.entry-btn {
+  border: 1px solid rgb(188, 185, 185);
+  width: 50%;
+  font-size: 1.7rem;
+  background-color: var(--main-medium);
+  color: white;
+  box-shadow: var(--box-shadow-small);
+}
+
+.entry-btn:hover {
+  color: white;
+  background-color: #3E5C76;
+  box-shadow: var(--box-shadow-large);
+}
 
 
 /* History Section */
@@ -36,20 +90,66 @@
   color: gray;
 }
 
+.history-delete-btn:hover {
+  box-shadow: var(--box-shadow-small);
+}
+
 .history-item {
-  background-color: rgb(240, 239, 239);
+  border-radius: 17px;
+  box-shadow: var(--box-shadow-large);
   margin: 30px;
   padding: 6px;
 }
 
 .history-item-btn:hover {
   border: 1px solid rgb(188, 185, 185);
+  box-shadow: var(--box-shadow-small);
+}
+
+.history-item-income {
+  background-color: #d5fccc;
+}
+
+.history-item-expense {
+  background-color: #fccccc;
+}
+
+.history-item-label {
+  font-size: 1.5rem;
+  font-family: var(--font-medium);
+  font-weight: bold;
+}
+
+.history-item-value {
+  font-size: 1.3rem;
+  font-family: var(--font-largest);
 }
 
 .icon-edit {
-  color: green;
+  color: var(--main-green);
 }
 
 .icon-delete {
-  color: red;
+  color: var(--main-red);
+}
+
+.transaction-update-submit,
+.transaction-update-cancel {
+  border: 1px solid rgb(188, 185, 185);
+  font-size: 1rem;
+  box-shadow: var(--box-shadow-small);
+}
+
+.transaction-update-submit {
+  background-color: var(--main-medium);
+  color: white;
+}
+
+.transaction-update-cancel {
+  background-color: var(--main-light);
+  color: black;
+}
+
+.transaction-history-empty {
+  font-size: 1.3rem;
 }

@@ -33,7 +33,6 @@ const History = ({historyData, handleDeleteAll, requestData }) => {
                         "transaction-label": label,
                         "transaction-value": value,
                         "transaction-type": type
-                        // id: new Date().getTime().toString()
                     }
 
                     //Axios is being used to send a put request, which will include the id in the URL. The second argument is to send the updated data in JSON format.
@@ -42,6 +41,8 @@ const History = ({historyData, handleDeleteAll, requestData }) => {
                             console.log(res.data);
                             // Sets input fields back to being empty:
                             e.target.reset();
+                            // Sets type back to '':
+                            setType('');
                             // Request's the data so the list will update:
                             requestData();
                         }); 
@@ -52,23 +53,20 @@ const History = ({historyData, handleDeleteAll, requestData }) => {
 
             return (
                 <div className="col-10 m-5 p-5">
-                {/* <div className="history" id="his tory"> */}
-                    <form onSubmit={(e) => handleSubmit(e)} className=''>
+                    <form onSubmit={(e) => handleSubmit(e)}>
                             <div className="row form-group">
                                 <div className="col">
-                                <label htmlFor="transaction-label">Label:</label>
+                                <label className='transaction-entry-label' htmlFor="transaction-label">Label:</label>
                                 <input className="form-control"
                                     type="text"
                                     name="transaction-label"
                                     id="transaction-label"
-                                    onChange={
-                                        (e) => setLabel(e.target.value)
-                                    }
+                                    onChange={(e) => setLabel(e.target.value)}
                                     required
                                 />
                                 </div>
                                 <div className="col">
-                                <label htmlFor="transaction-value">Value:</label>
+                                <label className='transaction-entry-label' htmlFor="transaction-value">Value:</label>
                                 <input className="form-control"
                                     type="number"
                                     name="transaction-value"
@@ -76,35 +74,24 @@ const History = ({historyData, handleDeleteAll, requestData }) => {
                                     onChange={
                                         (e) => setValue(e.target.value)
                                     }
+                                    min="0"
                                     required
                                 />
                                 </div>
                                 <div className="row form-group">
-                                    <label className="col-sm-6 col-form-label mx-auto mt-2">Type:</label>
+                                    <label className="col-sm-6 col-form-label mx-auto mt-2 transaction-entry-label">Type:</label>
                                     <ButtonGroup>
                                         <Button color="secondary" onClick={() => onRadioBtnClick('income')}>Income</Button>
                                         <Button color="secondary" onClick={() => onRadioBtnClick('expense')}>Expense</Button>
                                     </ButtonGroup>
-                                    {/* <fieldset id="transaction-type"> */}
-                                        {/* <div className="col-4 btn-group btn-group-toggle" data-toggle="buttons">
-                                            <label className="btn radio-btn-1 active text-nowrap">
-                                                <input type="radio" name="transaction-type" autoComplete="off" value="income" checked={'income'}  onChange={handleTypeChange} required /> Income
-                                            </label>
-                                            <label className="btn radio-btn-2 text-nowrap">
-                                                <input type="radio" name="transaction-type" autoComplete="off" value="expense" checked={'expense'} onChange={handleTypeChange} /> Expense
-                                            </label>
-                                        </div> */}
-                                    {/* </fieldset> */}
                                 </div>
-                            <div className="form-group text-center pt-3">
-                                <input type="submit" value="Submit" className='' />
-                                <button type="button" className="btn-modal btn-modal-submit" onClick={() => setShowEdit(!showEdit)}>Cancel</button>
+                            <div className="form-group text-center pt-4 d-flex justify-content-left flex-row">
+                                <input type="submit" value="Submit" className='btn transaction-update-submit m-2' />
+                                <button type="button" className="btn transaction-update-cancel m-2" onClick={() => setShowEdit(!showEdit)}>Cancel</button>
                             </div>
-                            </div>
-                        </form>
-                    
-                {/* </div> */}
-            </div>
+                        </div>
+                    </form>
+                </div>
             );
         };
 
@@ -122,14 +109,14 @@ const History = ({historyData, handleDeleteAll, requestData }) => {
 
         return (
         <React.Fragment>
-            <article className="col-12">
-                <div className="history-item" id="history">
+            <article className="col-12 col-xl-11">
+                <div className={ data.transaction_type === 'income' ? "history-item history-item-income" : "history-item history-item-expense"} id="history">
                     <div className='row m-5 d-flex justify-content-center align-items-center'>
-                        <div className='col-6'>
-                            <h3>{data.transaction_label}</h3>
-                            <p>${data.transaction_value}</p>
+                        <div className='col-8'>
+                            <h4 className='history-item-label'>{data.transaction_label}</h4>
+                            <p className='history-item-value'>${data.transaction_value}</p>
                         </div>
-                        <div className='col-6'>
+                        <div className='col-4'>
                             <div className='m-1'>
                                 <button type="button" className="btn history-item-btn mr-2" onClick={() => setShowEdit(!showEdit)}>
                                     <IconContext.Provider value={ {className: "icon-edit"} }>
@@ -152,27 +139,28 @@ const History = ({historyData, handleDeleteAll, requestData }) => {
         </React.Fragment>
         );
     };
-
+    console.log('this is historyData[0]');
+    console.log(historyData[0]);
+    console.log(historyData);
     return (
-        <section className="d-flex justify-content-center pt-5">
+        <section className="d-flex justify-content-center pt-2">
             <div className="container-fluid text-center">
                 <div className="row d-flex justify-content-center">
                     <div className="col-6">
-                        <h2>History</h2>
-                    {/* </div>
-                    <div className="col-2"> */}
+                        <h2>Transaction History</h2>
                         <button type="submit" className="btn history-delete-btn mt-1" onClick={() => handleDeleteAll()
                             }>Delete All</button>
                     </div>
                 </div>
-                <div className="row mt-3 pb-5 mb-5">
-                    <div className="col-12 col-md-6">
-                        <h2>Income Transactions</h2>
-                        {historyData.filter(transaction => transaction.transaction_type === 'income').map(transaction => <HistoryItem data={transaction} key={transaction._id}/>)}
+                <div className="row mt-3 pb-5 mb-5 d-flex justify-content-center">
+                    <div className="col-12 col-md-6 col-xl-5">
+                        <h3>Income</h3>
+                        {/* Filters by income type first to verify whether there's even one record. If there isn't even one income record at index 0 of the result array, a paragraph element is printed. Otherwise, the list will render. */}
+                        {historyData.filter(transaction => transaction.transaction_type === 'income')[0] === undefined ? <p className='m-4 transaction-history-empty'>There are no income transactions yet.</p> : historyData.filter(transaction => transaction.transaction_type === 'income').map(transaction => <HistoryItem data={transaction} key={transaction._id}/>)}
                     </div>
-                    <div className="col-12 col-md-6">
-                        <h2>Expense Transactions</h2>
-                        {historyData.filter(transaction => transaction.transaction_type === 'expense').map(transaction => <HistoryItem data={transaction} key={transaction._id}/>)}
+                    <div className="col-12 col-md-6 col-xl-5">
+                        <h3>Expenses</h3>
+                        {historyData.filter(transaction => transaction.transaction_type === 'expense')[0] === undefined ? <p className='m-4 transaction-history-empty'>There are no expense transactions yet.</p> : historyData.filter(transaction => transaction.transaction_type === 'expense').map(transaction => <HistoryItem data={transaction} key={transaction._id}/>)}
                     </div>
                 </div>
             </div>
