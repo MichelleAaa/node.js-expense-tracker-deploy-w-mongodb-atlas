@@ -19,42 +19,48 @@ connection.once('open', function() {
 })
 
 transactionRoutes.route('/')
-.get(function(req, res) {
-    Transaction.find(function(err, transactions) {
-        if (err) {
-            console.log(err);
-        } else {
-            res.json(transactions);
-        }
-    });
+.get(function(req, res, next) {
+    Transaction.find()
+    .then(transactions => {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json(transactions)
+    })
+    // .catch(err => {
+    //     res.status(400).end('GET request to retrieve all records failed.');
+    // });
+    .catch(err => next(err));
 })
-.post(function(req, res) {
-    console.log('this is req.body');
-    console.log(req.body);
+.post(function(req, res, next) {
     let transaction = new Transaction(
         {"transaction_label": req.body['transaction-label'],
         "transaction_value": req.body['transaction-value'],
         "transaction_type": req.body['transaction-type']
-        // "id": req.body.id
     });
     transaction.save()
-        .then(transaction => {
-            res.status(200).json({'transaction': 'transaction added successfully'});
-        })
-        .catch(err => {
-            res.status(400).send('adding new transaction failed');
-        });
+    .then(transaction => {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.end('Transaction Created');
+    })
+    // .catch(err => {
+    //     res.status(400).end('Adding new transaction failed');
+    // });
+    .catch(err => next(err));
 })
-.delete(function(req, res) {
+.delete(function(req, res, next) {
     Transaction.deleteMany({})
     .then(transaction => {
-        res.status(200).end('Data Deleted');
+        res.status(200).send('Data Deleted');
     })
-})
-;
+    // .catch(err => {
+    //     res.status(400).send('Deleting all transactions failed');
+    // });
+    .catch(err => next(err));
+});
 
 transactionRoutes.route('/:id')
-.put(function(req, res) {
+.put(function(req, res, next) {
     let transaction = 
         {"transaction_label": req.body['transaction-label'],
         "transaction_value": req.body['transaction-value'],
@@ -70,17 +76,19 @@ transactionRoutes.route('/:id')
         res.setHeader('Content-Type', 'application/json');
         res.json(transaction);
     })
-    .catch(err => {
-        res.status(400).send('Update failed.');
-    });
+    // .catch(err => {
+    //     res.status(400).send('Update failed.');
+    // });
+    .catch(err => next(err));
 })
-.delete(function(req, res) {
+.delete(function(req, res, next) {
     Transaction.findByIdAndDelete(req.params.id)
     .then(response => {
             res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
         res.json(response);
     })
+    .catch(err => next(err));
 });
 
 app.use('/tracker', transactionRoutes);

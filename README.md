@@ -106,7 +106,7 @@ I built this project after studying in the course focused on Node.js, Express, M
 ## References
 
 - CodingTheSmartWay - "The MERN Stack Tutorial - Building a React CRUD Application from Start to Finish with MongoDB, Express, React, and Node.js" - https://codingthesmartway.com/the-mern-stack-tutorial-building-a-react-crud-application-from-start-to-finish-part-1/ (Inspiration for the initial setup of the frontend and the backend server.)
-- Code With Sandip - "JavaScript Beginner Course | Practical JavaScript | Expense Tracker Application using JavaScript" - https://www.youtube.com/watch?v=hAEL5beIbuw  (Inspiration for the project ideal itself and some UI Design elements.)
+- Code With Sandip - "JavaScript Beginner Course | Practical JavaScript | Expense Tracker Application using JavaScript" - ht tps://www.youtube.com/watch?v=hAEL5beIbuw  (Inspiration for the project ideal itself and some UI Design elements.)
 - John Smilga - React Tutorial and Projects Course - Grocery Bud Mini Project - https://www.udemy.com/course/react-tutorial-and-projects-course/ (For additional inspiration regarding the React CRUD setup.)
 
 --------------------
