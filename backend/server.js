@@ -26,9 +26,6 @@ transactionRoutes.route('/')
         res.setHeader('Content-Type', 'application/json');
         res.json(transactions)
     })
-    // .catch(err => {
-    //     res.status(400).end('GET request to retrieve all records failed.');
-    // });
     .catch(err => next(err));
 })
 .post(function(req, res, next) {
@@ -43,9 +40,6 @@ transactionRoutes.route('/')
         res.setHeader('Content-Type', 'application/json');
         res.end('Transaction Created');
     })
-    // .catch(err => {
-    //     res.status(400).end('Adding new transaction failed');
-    // });
     .catch(err => next(err));
 })
 .delete(function(req, res, next) {
@@ -53,9 +47,6 @@ transactionRoutes.route('/')
     .then(transaction => {
         res.status(200).send('Data Deleted');
     })
-    // .catch(err => {
-    //     res.status(400).send('Deleting all transactions failed');
-    // });
     .catch(err => next(err));
 });
 
@@ -67,7 +58,7 @@ transactionRoutes.route('/:id')
         "transaction_type": req.body['transaction-type']
         // "id": req.body.id
     };
-    //Finds the existing document by the id, and replace it with the details in the transaction variable.
+    //Finds the existing document by the id, and replaces it with the details in the transaction variable.
     Transaction.findByIdAndUpdate(req.params.id, { 
         $set: transaction
     }, { new: true }) //Third argument is to get back information about the updated document as a result from this method. 
@@ -76,9 +67,6 @@ transactionRoutes.route('/:id')
         res.setHeader('Content-Type', 'application/json');
         res.json(transaction);
     })
-    // .catch(err => {
-    //     res.status(400).send('Update failed.');
-    // });
     .catch(err => next(err));
 })
 .delete(function(req, res, next) {
