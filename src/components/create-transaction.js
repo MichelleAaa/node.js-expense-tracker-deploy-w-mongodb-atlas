@@ -22,12 +22,10 @@ const InputForm = () => {
                 "transaction-value": value,
                 "transaction-type": type
             }
+            //Send a POST request to the backend endpoint.
             axios.post('http://localhost:4000/tracker', newTransaction)
                 .then(res => {
-                    console.log(res.data);
-                    //Sends an HTTP POST request to the backend endpoint http://localhost:4000/tracker. This endpoint is expecting to get the new object in JSON format in the request body, which is being passed in as the second argument (newTransaction).
-
-                    // Sets input fields back to being empty:
+                    // Resets input field values:
                     e.target.reset();
                     // Sets type back to '':
                     setType('');
@@ -43,7 +41,6 @@ const InputForm = () => {
         axios.get('http://localhost:4000/tracker')
         .then(response => {
             setList(response.data);
-            
         })
         .catch(function (error){
             console.log(error);
@@ -52,8 +49,7 @@ const InputForm = () => {
 
     const handleDeleteAll = (e) => {
         axios.delete('http://localhost:4000/tracker')
-        .then(response => {
-            console.log(response.data);
+        .then(() => {
             requestData();
         })
         .catch(function (error){
@@ -62,9 +58,8 @@ const InputForm = () => {
     };
 
     useEffect(() => {
-        // Runs on component mount, so the list will populate with data from the server on page load:
         requestData();
-    }, []);
+    }, []); // On component mount data from the server will be requested.
 
     return (
         <React.Fragment>
@@ -102,11 +97,10 @@ const InputForm = () => {
                                         <Button color="secondary" onClick={() => onRadioBtnClick('income')}>Income</Button>
                                         <Button color="secondary" onClick={() => onRadioBtnClick('expense')}>Expense</Button>
                                     </ButtonGroup>
-                                    {/* </div> */}
                                 </div>
-                            <div className="form-group text-center pt-3">
-                                <input type="submit" value="Submit" className='btn entry-btn mt-2' />
-                            </div>
+                                <div className="form-group text-center pt-3">
+                                    <input type="submit" value="Submit" className='btn entry-btn mt-2' />
+                                </div>
                             </div>
                         </form>
                     </div>

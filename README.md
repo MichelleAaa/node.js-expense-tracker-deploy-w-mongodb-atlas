@@ -1,8 +1,3 @@
-TEMPORARY NOTES:
-npm start -- to start React
-nodemon server -- from the backend folder
-Also start the mongoDB.
-
 # Expense Tracker
 
 A web-based application featuring an expense tracker. Built with React, JSX, Node.js, Express, MongoDB, Mongoose, Axios, JavaScript, Bootstrap, Reactstrap, and CSS. create-react-app was used to set up the front-end.

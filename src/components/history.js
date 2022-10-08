@@ -8,7 +8,6 @@ import axios from 'axios';
 const History = ({historyData, handleDeleteAll, requestData }) => {
 
     const HistoryItem = ({ data }) => {
-        // To open and close the edit drop-down. When True, the {...&&...} statement below will render EditItem.
         const [showEdit, setShowEdit] = useState(false);
 
         const EditItem = ({ id }) => {
@@ -30,15 +29,14 @@ const History = ({historyData, handleDeleteAll, requestData }) => {
                         "transaction-type": type
                     }
 
-                    //Axios is being used to send a put request, which will include the id in the URL. The second argument is to send the updated data in JSON format.
+                    //Send a put request with Axios, which will include the id in the URL. The second argument is to send the updated data in JSON format.
                     axios.put('http://localhost:4000/tracker/' + id, updatedTransaction)
-                        .then(res => {
-                            console.log(res.data);
-                            // Sets input fields back to being empty:
+                        .then(() => {
+                            // Resets input fields:
                             e.target.reset();
                             // Sets type back to '':
                             setType('');
-                            // Requests the data so the list will update:
+                            // Requests the data in order for the list to update:
                             requestData();
                         }); 
                 } else {
@@ -51,27 +49,27 @@ const History = ({historyData, handleDeleteAll, requestData }) => {
                     <form onSubmit={(e) => handleSubmit(e)}>
                             <div className="row form-group">
                                 <div className="col">
-                                <label className='transaction-entry-label' htmlFor="transaction-label">Label:</label>
-                                <input className="form-control"
-                                    type="text"
-                                    name="transaction-label"
-                                    id="transaction-label"
-                                    onChange={(e) => setLabel(e.target.value)}
-                                    required
-                                />
+                                    <label className='transaction-entry-label' htmlFor="transaction-label">Label:</label>
+                                    <input className="form-control"
+                                        type="text"
+                                        name="transaction-label"
+                                        id="transaction-label"
+                                        onChange={(e) => setLabel(e.target.value)}
+                                        required
+                                    />
                                 </div>
                                 <div className="col">
-                                <label className='transaction-entry-label' htmlFor="transaction-value">Value:</label>
-                                <input className="form-control"
-                                    type="number"
-                                    name="transaction-value"
-                                    id='transaction-value'
-                                    onChange={
-                                        (e) => setValue(e.target.value)
-                                    }
-                                    min="0"
-                                    required
-                                />
+                                    <label className='transaction-entry-label' htmlFor="transaction-value">Value:</label>
+                                    <input className="form-control"
+                                        type="number"
+                                        name="transaction-value"
+                                        id='transaction-value'
+                                        onChange={
+                                            (e) => setValue(e.target.value)
+                                        }
+                                        min="0"
+                                        required
+                                    />
                                 </div>
                                 <div className="row form-group">
                                     <label className="col-sm-6 col-form-label mx-auto mt-2 transaction-entry-label">Type:</label>
@@ -92,10 +90,8 @@ const History = ({historyData, handleDeleteAll, requestData }) => {
 
         const deleteItem = (id) => {
             axios.delete('http://localhost:4000/tracker/'+ id)
-            .then(response => {
-                console.log(response.data);
+            .then(() => {
                 requestData();
-                
             })
             .catch(function (error){
                 console.log(error);
@@ -130,7 +126,7 @@ const History = ({historyData, handleDeleteAll, requestData }) => {
                         </div>
                     </div>
                 </article>
-                {showEdit && <EditItem id={data._id} />}
+                {showEdit && <EditItem id={data._id} />} 
             </div>
         );
     };
@@ -148,7 +144,7 @@ const History = ({historyData, handleDeleteAll, requestData }) => {
                 <div className="row mt-3 pb-5 mb-5 d-flex justify-content-center">
                     <div className="col-12 col-md-6 col-xl-5">
                         <h3>Income</h3>
-                        {/* Filters by income type first to verify whether there's even one record. If there isn't even one income record at index 0 of the result array, a paragraph element is printed. Otherwise, the list will render. */}
+                        {/* Filters by income type and then verifies whether there is an income record at index 0.*/}
                         {historyData.filter(transaction => transaction.transaction_type === 'income')[0] === undefined ? <p className='m-4 transaction-history-empty'>There are no income transactions yet.</p> : historyData.filter(transaction => transaction.transaction_type === 'income').map(transaction => <HistoryItem data={transaction} key={transaction._id}/>)}
                     </div>
                     <div className="col-12 col-md-6 col-xl-5">

@@ -1,11 +1,11 @@
 import InputForm from './components/create-transaction';
 import "bootstrap/dist/css/bootstrap.min.css";
-import './App.css';
+import './index.css';
 
 function App() {
 
   return (
-    <main className="">
+    <main>
         <InputForm />
     </main>
   );
