@@ -1,9 +1,11 @@
 const express = require('express');
 const app = express();
+var path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const transactionRoutes = express.Router();
+require('dotenv').config();
 const PORT = 4000;
 
 let Transaction = require('./transaction.model');
@@ -11,7 +13,7 @@ let Transaction = require('./transaction.model');
 app.use(cors());
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://127.0.0.1:27017/tracker', { useNewUrlParser: true });
+mongoose.connect(process.env.DB_URI, { useNewUrlParser: true });
 const connection = mongoose.connection;
 
 connection.once('open', function() {
@@ -79,6 +81,17 @@ transactionRoutes.route('/:id')
 });
 
 app.use('/tracker', transactionRoutes);
+
+// Serve the front end:
+app.use(express.static(path.join(__dirname, "./client/build"))); 
+
+app.get("*", function (_, res) { 
+    res.sendFile( path.join(__dirname, "./client/build/index.html"), 
+        function (err) { res.status(500).send(err); 
+        } 
+    ); 
+});
+
 
 app.listen(PORT, function() {
     console.log("Server is running on Port: " + PORT);

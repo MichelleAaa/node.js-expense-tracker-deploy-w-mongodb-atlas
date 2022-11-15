@@ -30,7 +30,8 @@ const History = ({historyData, handleDeleteAll, requestData }) => {
                     }
 
                     //Send a put request with Axios, which will include the id in the URL. The second argument is to send the updated data in JSON format.
-                    axios.put('http://localhost:4000/tracker/' + id, updatedTransaction)
+                    // UPDATED TO DELETE LOCALHOST:4000
+                    axios.put('/tracker/' + id, updatedTransaction)
                         .then(() => {
                             // Resets input fields:
                             e.target.reset();
@@ -88,8 +89,9 @@ const History = ({historyData, handleDeleteAll, requestData }) => {
             );
         };
 
+        // UPDATED TO DELETE LOCALHOST:4000
         const deleteItem = (id) => {
-            axios.delete('http://localhost:4000/tracker/'+ id)
+            axios.delete('/tracker/'+ id)
             .then(() => {
                 requestData();
             })

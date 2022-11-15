@@ -1,1 +1,0 @@
-## Please see the README.md file in the main folder for instructions on how to install and start the backend.

@@ -23,7 +23,8 @@ const InputForm = () => {
                 "transaction-type": type
             }
             //Send a POST request to the backend endpoint.
-            axios.post('http://localhost:4000/tracker', newTransaction)
+            // UPDATED TO REMOVE LOCALHOST
+            axios.post('/tracker', newTransaction)
                 .then(res => {
                     // Resets input field values:
                     e.target.reset();
@@ -36,9 +37,9 @@ const InputForm = () => {
             alert('Error, please make a valid type selection.')
         }
     };
-
+// UPDATED TO REMOVE http://localhost:4000
     const requestData = () => {
-        axios.get('http://localhost:4000/tracker')
+        axios.get('/tracker')
         .then(response => {
             setList(response.data);
         })
@@ -46,9 +47,9 @@ const InputForm = () => {
             console.log(error);
         })
     };
-
+// // UPDATED TO REMOVE http://localhost:4000
     const handleDeleteAll = (e) => {
-        axios.delete('http://localhost:4000/tracker')
+        axios.delete('/tracker')
         .then(() => {
             requestData();
         })
